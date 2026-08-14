@@ -1,810 +1,139 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>ALMUFTI — Company Profile 2026</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --deep:#0F2B22;
-    --deep2:#12352A;
-    --mid:#1F4D3A;
-    --gold:#C6A15B;
-    --gold-lt:#E8C874;
-    --gold-dim:rgba(198,161,91,0.35);
-    --ivory:#F6F1E4;
-    --white:#FFFFFF;
-    --ink:#12231C;
-    --muted:#5B6E64;
-  }
-  *{box-sizing:border-box; margin:0; padding:0;}
-  html,body{background:#3a3a3a;}
-  body{
-    font-family:'Tajawal',sans-serif;
-    color:var(--ink);
-    direction:rtl;
-  }
-  .eyebrow{
-    font-family:'Space Grotesk',sans-serif;
-    direction:ltr;
-    text-transform:uppercase;
-    letter-spacing:2.5px;
-    font-size:10.5pt;
-    color:var(--gold);
-    font-weight:600;
-    display:block;
-    text-align:left;
-  }
-  .book{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:28px;
-    padding:28px 0;
-  }
-  .page{
-    position:relative;
-    width:4.5in;
-    height:8in;
-    background:var(--ivory);
-    overflow:hidden;
-    box-shadow:0 10px 40px rgba(0,0,0,0.45);
-  }
-  .page.dark{ background:var(--deep); color:var(--ivory); }
-  .page.dark .muted{ color:rgba(246,241,228,0.65); }
-  .page.mid{ background:var(--mid); color:var(--ivory);}
-
-  /* corner frame */
-  .frame::before, .frame::after,
-  .frame .fc2, .frame .fc3{
-    content:"";
-    position:absolute;
-    width:22px; height:22px;
-    border:2px solid var(--gold);
-    opacity:0.85;
-  }
-  .frame::before{ top:16px; right:16px; border-left:none; border-bottom:none; }
-  .frame::after{ bottom:16px; left:16px; border-right:none; border-top:none; }
-  .frame .fc2{ top:16px; left:16px; border-right:none; border-bottom:none; }
-  .frame .fc3{ bottom:16px; right:16px; border-left:none; border-top:none; }
-
-  .footstrip{
-    position:absolute;
-    bottom:34px; left:44px; right:44px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    font-family:'Space Grotesk',sans-serif;
-    font-size:8pt;
-    letter-spacing:1.5px;
-    color:var(--gold);
-    opacity:0.85;
-    direction:ltr;
-  }
-  .footstrip .mark{ display:flex; align-items:center; gap:6px; }
-  .footstrip .mark .dot{ width:6px; height:6px; border-radius:50%; background:var(--gold);}
-
-  .content{
-    position:absolute;
-    top:0; left:0; right:0; bottom:0;
-    padding:56px 44px 74px 44px;
-  }
-
-  h1.h-ar{
-    font-size:30pt;
-    font-weight:900;
-    line-height:1.15;
-    color:var(--deep);
-  }
-  .page.dark h1.h-ar, .page.mid h1.h-ar{ color:var(--ivory); }
-  .kicker{
-    display:flex; flex-direction:column; gap:6px; margin-bottom:22px;
-  }
-
-  .goldline{ width:52px; height:3px; background:var(--gold); border-radius:2px; margin:10px 0 16px auto;}
-
-  ul.list{ list-style:none; display:flex; flex-direction:column; gap:10px;}
-  ul.list li{
-    position:relative;
-    padding-right:22px;
-    font-size:12.5pt;
-    line-height:1.55;
-    font-weight:500;
-  }
-  ul.list li::before{
-    content:"";
-    position:absolute; right:0; top:8px;
-    width:8px; height:8px;
-    background:var(--gold);
-    border-radius:2px;
-    transform:rotate(45deg);
-  }
-  p.body{ font-size:12.5pt; line-height:1.75; font-weight:400; }
-
-  .icon{ width:100%; height:100%; stroke:var(--gold); fill:none; stroke-width:2.6; stroke-linecap:round; stroke-linejoin:round; }
-  .icon-box{ width:46px; height:46px; }
-
-  .tag-chip{
-    display:inline-flex; align-items:center; gap:8px;
-    border:1px solid var(--gold-dim);
-    border-radius:30px;
-    padding:8px 16px;
-    font-size:10.5pt; font-weight:600;
-    color:var(--ivory);
-    background:rgba(255,255,255,0.04);
-  }
-
-  /* stat cards */
-  .stat-grid{ display:grid; grid-template-columns:1fr 1fr; gap:14px; }
-  .stat-card{
-    background:var(--deep);
-    color:var(--ivory);
-    border-radius:6px;
-    padding:18px 16px;
-    position:relative;
-    overflow:hidden;
-  }
-  .stat-card::after{
-    content:""; position:absolute; inset:0; border:1px solid var(--gold-dim); border-radius:6px;
-  }
-  .stat-num{ font-family:'Space Grotesk',sans-serif; direction:ltr; text-align:left; font-size:26pt; font-weight:700; color:var(--gold-lt); line-height:1;}
-  .stat-label{ margin-top:8px; font-size:10.5pt; font-weight:600; }
-
-  /* timeline */
-  .tline{ position:relative; padding-top:10px; }
-  .tline .bar{ position:absolute; top:24px; left:20px; right:20px; height:2px; background:var(--gold-dim);}
-  .tline .stops{ display:flex; justify-content:space-between; position:relative; }
-  .tline .stop{ display:flex; flex-direction:column; align-items:center; gap:8px; width:22%; }
-  .tline .stop .node{ width:14px; height:14px; border-radius:50%; background:var(--gold); border:3px solid var(--ivory); z-index:2;}
-  .tline .stop .yr{ font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:11pt; direction:ltr; color:var(--deep);}
-  .tline .stop .cap{ font-size:9.5pt; text-align:center; font-weight:500; color:var(--muted); }
-
-  /* mindmap */
-  .mind{ position:relative; height:100%; }
-  .mind-center{
-    position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-    width:130px; height:130px; border-radius:50%;
-    background:var(--deep); color:var(--gold-lt);
-    display:flex; align-items:center; justify-content:center; text-align:center;
-    font-weight:800; font-size:13pt; padding:10px;
-    box-shadow:0 0 0 8px rgba(198,161,91,0.12);
-    z-index:3;
-  }
-  .mind-node{
-    position:absolute;
-    background:var(--white);
-    border:1px solid var(--gold-dim);
-    border-radius:8px;
-    padding:10px 12px;
-    font-size:10.5pt; font-weight:700; text-align:center;
-    width:120px; z-index:3;
-    box-shadow:0 4px 10px rgba(0,0,0,0.06);
-  }
-  .mind svg.lines{ position:absolute; inset:0; z-index:1; }
-
-  /* footer note text small */
-  .note{ font-size:9.5pt; color:var(--muted); font-weight:500; }
-
-  .split{ display:grid; grid-template-columns:1fr 1fr; height:100%; }
-  .split > div{ padding:26px 20px; }
-  .split .divider{ position:absolute; top:0; bottom:0; left:50%; width:1px; background:var(--gold-dim); }
-
-  .container-card{
-    border:1px solid var(--gold-dim);
-    border-radius:8px;
-    padding:16px 18px;
-    background:var(--white);
-  }
-  .container-card h3{ font-size:13.5pt; font-weight:800; color:var(--deep); margin-bottom:4px;}
-  .container-card .eyebrow{ font-size:8.5pt; margin-bottom:6px;}
-
-  .page-index{ font-family:'Space Grotesk',sans-serif; font-size:9pt; direction:ltr;}
-
-  @media print{
-    body{background:#fff;}
-    .book{padding:0; gap:0;}
-    .page{ box-shadow:none; page-break-after:always; }
-    @page{ size:4.5in 8in; margin:0; }
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سياسة الخصوصية — اسبيرك (Espeerk)</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
+      line-height: 1.8;
+      color: #222;
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 24px 20px;
+      background: #fafafa;
+    }
+    h1 {
+      color: #1565c0;
+      border-bottom: 3px solid #1565c0;
+      padding-bottom: 10px;
+      font-size: 28px;
+    }
+    h2 {
+      color: #0d47a1;
+      margin-top: 30px;
+      font-size: 20px;
+    }
+    p, li { font-size: 16px; }
+    ul { padding-right: 22px; }
+    .updated {
+      color: #666;
+      font-size: 14px;
+      font-style: italic;
+    }
+    .box {
+      background: #e3f2fd;
+      border-right: 4px solid #1565c0;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 16px 0;
+    }
+    footer {
+      margin-top: 40px;
+      padding-top: 16px;
+      border-top: 1px solid #ddd;
+      color: #777;
+      font-size: 13px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute">
-<defs>
-  <symbol id="i-leaf" viewBox="0 0 48 48"><path d="M10 38C6 24 14 8 34 6c2 20-8 30-24 32Z"/><path d="M10 38C16 28 22 20 34 6"/></symbol>
-  <symbol id="i-wheat" viewBox="0 0 48 48"><path d="M24 44V10"/><path d="M24 12c-4-4-10-4-13 0 3 4 9 4 13 0Z"/><path d="M24 12c4-4 10-4 13 0-3 4-9 4-13 0Z"/><path d="M24 20c-4-4-10-4-13 0 3 4 9 4 13 0Z"/><path d="M24 20c4-4 10-4 13 0-3 4-9 4-13 0Z"/><path d="M24 28c-4-4-10-4-13 0 3 4 9 4 13 0Z"/><path d="M24 28c4-4 10-4 13 0-3 4-9 4-13 0Z"/></symbol>
-  <symbol id="i-pivot" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M24 24 6 24"/><path d="M24 24 42 24"/><circle cx="24" cy="24" r="3" fill="currentColor" stroke="none"/><path d="M8 30v6M14 32v4M20 33v3M28 33v3M34 32v4M40 30v6"/></symbol>
-  <symbol id="i-tower" viewBox="0 0 48 48"><path d="M24 4 12 44M24 4l12 40"/><path d="M16 30h16M14 22h20M17 14h14"/><path d="M4 12h10M34 12h10M6 20h8M34 20h8"/></symbol>
-  <symbol id="i-bolt" viewBox="0 0 48 48"><path d="M26 4 10 28h12l-4 16 20-26H26l4-14Z"/></symbol>
-  <symbol id="i-ship" viewBox="0 0 48 48"><path d="M6 30h36l-4 10H10L6 30Z"/><path d="M12 30V14h6v16M22 30V10h6v20M32 30V18h4v12"/><path d="M4 36c4 3 8 3 12 0s8-3 12 0 8 3 12 0"/></symbol>
-  <symbol id="i-globe" viewBox="0 0 48 48"><circle cx="24" cy="24" r="18"/><path d="M6 24h36M24 6c6 6 6 30 0 36M24 6c-6 6-6 30 0 36"/><path d="M9 14h30M9 34h30"/></symbol>
-  <symbol id="i-crane" viewBox="0 0 48 48"><path d="M8 44V16l24-8v10"/><path d="M8 20h30"/><path d="M32 20 42 8"/><path d="M38 20v10l6-4"/><path d="M4 44h34"/></symbol>
-  <symbol id="i-chip" viewBox="0 0 48 48"><rect x="14" y="14" width="20" height="20" rx="2"/><path d="M20 8v6M28 8v6M20 34v6M28 34v6M8 20h6M8 28h6M34 20h6M34 28h6"/></symbol>
-  <symbol id="i-server" viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="12" rx="2"/><rect x="8" y="24" width="32" height="12" rx="2"/><circle cx="14" cy="14" r="1.6" fill="currentColor"/><circle cx="14" cy="30" r="1.6" fill="currentColor"/></symbol>
-  <symbol id="i-hospital" viewBox="0 0 48 48"><rect x="8" y="10" width="32" height="30" rx="2"/><path d="M24 18v14M17 25h14"/><path d="M8 40h32"/></symbol>
-  <symbol id="i-camera" viewBox="0 0 48 48"><rect x="6" y="16" width="28" height="18" rx="3"/><circle cx="20" cy="25" r="6"/><path d="M34 21 44 16v18l-10-5"/></symbol>
-  <symbol id="i-team" viewBox="0 0 48 48"><circle cx="16" cy="16" r="6"/><circle cx="34" cy="16" r="6"/><path d="M4 42c0-9 6-15 12-15s12 6 12 15M22 42c0-9 6-15 12-15s12 6 12 15"/></symbol>
-  <symbol id="i-pin" viewBox="0 0 48 48"><path d="M24 44C14 30 8 22 8 15a16 16 0 0 1 32 0c0 7-6 15-16 29Z"/><circle cx="24" cy="15" r="5"/></symbol>
-  <symbol id="i-network" viewBox="0 0 48 48"><circle cx="24" cy="10" r="5"/><circle cx="8" cy="36" r="5"/><circle cx="40" cy="36" r="5"/><path d="M24 15 8 31M24 15l16 16M13 36h22"/></symbol>
-  <symbol id="i-doc" viewBox="0 0 48 48"><path d="M12 4h16l8 8v32H12Z"/><path d="M28 4v8h8"/><path d="M18 24h12M18 30h12M18 36h8"/></symbol>
-  <symbol id="i-handshake" viewBox="0 0 48 48"><path d="M4 22l10-8 8 4 4-4 8 2 10 8"/><path d="M14 18l8 10 4-4"/><path d="M34 18l-8 12"/></symbol>
-</defs>
-</svg>
 
-<div class="book">
+<h1>سياسة الخصوصية — تطبيق اسبيرك (Espeerk)</h1>
+<p class="updated">آخر تحديث: 14 أغسطس 2026</p>
 
-<!-- PAGE 1 — COVER -->
-<section class="page dark">
-  <div style="position:absolute;inset:0;opacity:0.5;">
-    <svg width="100%" height="100%" viewBox="0 0 432 768" preserveAspectRatio="none">
-      <rect x="0" y="0" width="432" height="768" fill="var(--deep)"/>
-      <rect x="0" y="0" width="432" height="150" fill="var(--deep2)"/>
-      <rect x="0" y="150" width="140" height="618" fill="var(--deep2)" opacity="0.6"/>
-      <line x1="0" y1="150" x2="432" y2="150" stroke="var(--gold)" stroke-opacity="0.35" stroke-width="1"/>
-      <line x1="140" y1="150" x2="140" y2="768" stroke="var(--gold)" stroke-opacity="0.35" stroke-width="1"/>
-      <line x1="292" y1="0" x2="292" y2="150" stroke="var(--gold)" stroke-opacity="0.35" stroke-width="1"/>
-    </svg>
-  </div>
-  <div class="frame"><span class="fc2"></span><span class="fc3"></span></div>
-  <div class="content" style="padding-top:64px;">
-    <span class="eyebrow">Company Profile — 2026</span>
-    <div class="goldline" style="margin-right:auto;margin-left:0;"></div>
-    <h1 class="h-ar" style="font-size:24pt;margin-top:230px;">شركة المفتي<br>للمشاريع المتطورة المحدودة</h1>
-    <span class="eyebrow" style="margin-top:8px;">ALMUFTI Developed Projects Co. Ltd</span>
+<p>
+  تطبيق <strong>اسبيرك (Espeerk)</strong> هو نظام إدارة متكامل لمحلات قطع الغيار والمستلزمات،
+  يوفر إدارة المخزون والمبيعات والعملاء والموردين والتقارير المالية.
+  هذه السياسة توضح كيفية جمع بياناتك واستخدامها وحمايتها عند استخدامك للتطبيق.
+</p>
 
-    <div style="margin-top:48px;display:flex;flex-wrap:wrap;gap:10px;">
-      <span class="tag-chip"><svg class="icon" style="width:16px;height:16px"><use href="#i-leaf"/></svg>الزراعة</span>
-      <span class="tag-chip"><svg class="icon" style="width:16px;height:16px"><use href="#i-bolt"/></svg>الكهرباء</span>
-      <span class="tag-chip"><svg class="icon" style="width:16px;height:16px"><use href="#i-ship"/></svg>الاستيراد والتصدير</span>
-      <span class="tag-chip"><svg class="icon" style="width:16px;height:16px"><use href="#i-crane"/></svg>المقاولات</span>
-      <span class="tag-chip"><svg class="icon" style="width:16px;height:16px"><use href="#i-chip"/></svg>التقنية</span>
-    </div>
-  </div>
-  <div style="position:absolute;bottom:44px;left:44px;right:44px;">
-    <div style="height:1px;background:var(--gold-dim);margin-bottom:16px;"></div>
-    <p style="font-size:11pt;font-weight:600;line-height:1.9;">الخرطوم — شارع الشرقي<br>
-    <span dir="ltr" style="display:inline-block;">+249 912 324 090</span><br>
-    <span dir="ltr" style="display:inline-block;">elmfuti428@gmail.com</span></p>
-  </div>
-</section>
-
-<!-- PAGE 2 — Company at a Glance -->
-<section class="page frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow">Company at a Glance</span>
-      <h1 class="h-ar">شركة متعددة<br>القطاعات</h1>
-    </div>
-    <p class="body">تأسست الشركة مطلع 2020 كشركة استثمارية تدير وتؤسس مشاريع زراعية، وتعمل في الاستيراد والتصدير، والأعمال الكهربائية والمقاولات، وتقدّم حلولًا تقنية متطورة داخل السودان وخارجه، اعتمادًا على الجودة والكفاءة والابتكار.</p>
-
-    <div class="stat-grid" style="margin-top:26px;">
-      <div class="stat-card"><div class="stat-num">2020</div><div class="stat-label">سنة التأسيس<br><span class="note" style="color:var(--gold-lt);">Founded</span></div></div>
-      <div class="stat-card"><div class="stat-num">1000</div><div class="stat-label">فدان — مشروع القحطاني<br><span class="note" style="color:var(--gold-lt);">Feddan, Al-Qahtani</span></div></div>
-      <div class="stat-card"><div class="stat-num">140</div><div class="stat-label">محورًا كهربائيًا منفذًا<br><span class="note" style="color:var(--gold-lt);">Electrical pivots</span></div></div>
-      <div class="stat-card"><div class="stat-num">+20</div><div class="stat-label">عامًا من الخبرة الفنية<br><span class="note" style="color:var(--gold-lt);">Years of expertise</span></div></div>
-    </div>
-
-    <div class="tline" style="margin-top:40px;">
-      <div class="bar"></div>
-      <div class="stops">
-        <div class="stop"><div class="node"></div><div class="yr">2020</div><div class="cap">التأسيس</div></div>
-        <div class="stop"><div class="node"></div><div class="yr">2021</div><div class="cap">الزراعة</div></div>
-        <div class="stop"><div class="node"></div><div class="yr">2023</div><div class="cap">الكهرباء</div></div>
-        <div class="stop"><div class="node"></div><div class="yr">2025</div><div class="cap">التقنية</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">02 / 18</div></div>
-</section>
-
-<!-- PAGE 3 — من نحن -->
-<section class="page frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow">Who We Are</span>
-      <h1 class="h-ar">من نحن</h1>
-    </div>
-    <p class="body" style="max-width:340px;">المفتي شركة استثمارية متخصصة في الاستيراد والتصدير، وإدارة المشاريع الزراعية والكهربائية، وتقديم الحلول التقنية، تعمل بمهنية لتقديم حلول متكاملة تلبي احتياجات عملائها.</p>
-
-    <div class="mind" style="height:300px;margin-top:20px;">
-      <svg class="lines" viewBox="0 0 340 300">
-        <line x1="170" y1="150" x2="60" y2="40" stroke="var(--gold)" stroke-opacity="0.5"/>
-        <line x1="170" y1="150" x2="280" y2="40" stroke="var(--gold)" stroke-opacity="0.5"/>
-        <line x1="170" y1="150" x2="60" y2="260" stroke="var(--gold)" stroke-opacity="0.5"/>
-        <line x1="170" y1="150" x2="280" y2="260" stroke="var(--gold)" stroke-opacity="0.5"/>
-      </svg>
-      <div class="mind-center">المفتي<br><span style="font-size:8pt;font-weight:500;">ALMUFTI</span></div>
-      <div class="mind-node" style="top:8px; right:10px;">الزراعة</div>
-      <div class="mind-node" style="top:8px; left:10px;">الاستيراد والتصدير</div>
-      <div class="mind-node" style="bottom:8px; right:10px;">الكهرباء</div>
-      <div class="mind-node" style="bottom:8px; left:10px;">التقنية</div>
-    </div>
-
-    <div style="margin-top:26px;background:var(--deep);color:var(--ivory);border-radius:8px;padding:18px 20px;">
-      <span class="eyebrow" style="color:var(--gold-lt);">Our Ambition</span>
-      <h3 style="font-size:15pt;font-weight:800;margin-top:6px;">طموحنا</h3>
-      <p style="font-size:11.5pt;margin-top:6px;line-height:1.7;">أن نكون شريكًا موثوقًا نقدّم من خلاله منتجات وخدمات ذات قيمة مضافة حقيقية لعملائنا.</p>
-    </div>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">03 / 18</div></div>
-</section>
-
-<!-- PAGE 4 — رؤيتنا -->
-<section class="page mid frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow" style="color:var(--gold-lt);">Our Vision</span>
-      <h1 class="h-ar">رؤيتنا ومنهج عملنا</h1>
-    </div>
-    <p class="body" style="color:var(--ivory);">أن نكون شريكًا موثوقًا في تنفيذ المشاريع، وتقديم خدمات ذات قيمة مضافة، والسير بخطى ثابتة نحو المستقبل.</p>
-
-    <div style="position:relative;height:330px;margin-top:26px;">
-      <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:110px;height:110px;border-radius:50%;background:var(--gold);color:var(--deep);display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;font-size:11pt;z-index:3;">القيمة<br>المضافة</div>
-      <svg viewBox="0 0 340 330" style="position:absolute;inset:0;">
-        <circle cx="170" cy="165" r="140" fill="none" stroke="var(--gold-dim)" stroke-width="1"/>
-      </svg>
-      <div class="mind-node" style="top:0;right:60px;background:transparent;border-color:var(--gold);color:var(--ivory);">الجودة العالية</div>
-      <div class="mind-node" style="top:0;left:60px;background:transparent;border-color:var(--gold);color:var(--ivory);">الحلول المتخصصة</div>
-      <div class="mind-node" style="bottom:0;right:60px;background:transparent;border-color:var(--gold);color:var(--ivory);">الكفاءة والابتكار</div>
-      <div class="mind-node" style="bottom:0;left:60px;background:transparent;border-color:var(--gold);color:var(--ivory);">الموثوقية</div>
-    </div>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">04 / 18</div></div>
-</section>
-
-<!-- PAGE 5 — المفتي الزراعية -->
-<section class="page frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow">ALMUFTI Agriculture</span>
-      <h1 class="h-ar">المفتي الزراعية</h1>
-    </div>
-    <p class="body">بشراكة مع مجموعة عبد الهادي القحطاني وأولاده بالمملكة العربية السعودية، استأجرت المفتي مشروع القحطاني ضمن مشروع الأمن الغذائي في الدامر بالسودان، بعقود طويلة الأجل.</p>
-
-    <div style="display:flex;align-items:center;gap:18px;margin-top:24px;">
-      <svg viewBox="0 0 140 140" width="120" height="120">
-        <circle cx="70" cy="70" r="55" fill="none" stroke="var(--gold-dim)" stroke-width="14"/>
-        <circle cx="70" cy="70" r="55" fill="none" stroke="var(--gold)" stroke-width="14" stroke-dasharray="345" stroke-dashoffset="60" stroke-linecap="round" transform="rotate(-90 70 70)"/>
-        <text x="70" y="65" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="20" fill="var(--deep)">1000</text>
-        <text x="70" y="82" text-anchor="middle" font-family="Space Grotesk" font-size="9" fill="var(--muted)">FEDDAN</text>
-      </svg>
-      <div style="flex:1;">
-        <svg viewBox="0 0 160 120" width="100%" height="90">
-          <circle cx="60" cy="60" r="4" fill="var(--gold)"/>
-          <circle cx="95" cy="45" r="7" fill="var(--deep)"/>
-          <text x="95" y="30" text-anchor="middle" font-size="9" font-family="Tajawal" font-weight="700" fill="var(--deep)">الدامر</text>
-          <path d="M20 90c30-10 60 5 100-20" fill="none" stroke="var(--gold-dim)" stroke-width="1.4"/>
-        </svg>
-        <span class="note">موقع المشروع — نهر النيل</span>
-      </div>
-    </div>
-
-    <ul class="list" style="margin-top:22px;">
-      <li>اعتماد كامل على أنظمة الري المحوري.</li>
-      <li>إنتاج عدد من المحاصيل الزراعية الأساسية.</li>
-      <li>إدارة وتشغيل وفق منهجية زراعية متكاملة.</li>
-    </ul>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">05 / 18</div></div>
-</section>
-
-<!-- PAGE 6 — القمح -->
-<section class="page dark frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow">Wheat Production</span>
-      <h1 class="h-ar">زراعة محصول القمح</h1>
-    </div>
-    <p class="body muted">القمح من المحاصيل الاستراتيجية المرتبطة بالأمن الغذائي السوداني، وتزرعه الشركة زراعة دورية وفق خطتها الإنتاجية بإنتاجية وصفت بالممتازة.</p>
-
-    <div style="display:flex;justify-content:center;margin-top:30px;">
-      <svg viewBox="0 0 220 220" width="220" height="220">
-        <circle cx="110" cy="110" r="90" fill="none" stroke="rgba(198,161,91,0.25)" stroke-width="1"/>
-        <circle cx="110" cy="110" r="70" fill="none" stroke="var(--gold)" stroke-width="10" stroke-dasharray="440" stroke-dashoffset="120" stroke-linecap="round" transform="rotate(-90 110 110)"/>
-        <text x="110" y="102" text-anchor="middle" font-family="Space Grotesk" font-weight="700" font-size="34" fill="var(--gold-lt)">240</text>
-        <text x="110" y="126" text-anchor="middle" font-family="Space Grotesk" font-size="11" fill="var(--ivory)" opacity="0.7">FEDDAN</text>
-      </svg>
-    </div>
-
-    <div style="display:flex;justify-content:space-around;margin-top:22px;">
-      <div style="text-align:center;">
-        <svg class="icon" style="width:40px;height:40px;stroke:var(--gold-lt);"><use href="#i-pivot"/></svg>
-        <div class="note" style="color:var(--gold-lt);margin-top:6px;">جهازا ري محوري</div>
-      </div>
-      <div style="text-align:center;">
-        <svg class="icon" style="width:40px;height:40px;stroke:var(--gold-lt);"><use href="#i-wheat"/></svg>
-        <div class="note" style="color:var(--gold-lt);margin-top:6px;">محصول استراتيجي</div>
-      </div>
-    </div>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">06 / 18</div></div>
-</section>
-
-<!-- PAGE 7 — فول الصويا / الأعلاف -->
-<section class="page frame" style="padding:0;">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="split" style="position:relative;height:100%;">
-    <div class="divider"></div>
-    <div>
-      <span class="eyebrow">Soybean</span>
-      <h1 class="h-ar" style="font-size:19pt;margin-top:6px;">فول الصويا</h1>
-      <div class="goldline" style="margin:14px auto 14px 0;"></div>
-      <svg class="icon" style="width:36px;height:36px;"><use href="#i-leaf"/></svg>
-      <ul class="list" style="margin-top:14px;font-size:11pt;">
-        <li>المساحة: 240 فدانًا.</li>
-        <li>أجهزة ري محوري: 2.</li>
-        <li>بالتعاون مع بيوت خبرة سودانية.</li>
-      </ul>
-      <p class="note" style="margin-top:14px;">يستخدم في إنتاج الزيوت والصناعات الغذائية — منطقة الدامر، نهر النيل.</p>
-    </div>
-    <div>
-      <span class="eyebrow">Animal Feed</span>
-      <h1 class="h-ar" style="font-size:19pt;margin-top:6px;">الأعلاف الحيوانية</h1>
-      <div class="goldline" style="margin:14px auto 14px 0;"></div>
-      <svg class="icon" style="width:36px;height:36px;"><use href="#i-wheat"/></svg>
-      <ul class="list" style="margin-top:14px;font-size:11pt;">
-        <li>أجهزة ري محوري: 4.</li>
-        <li>المساحة المزروعة: 480 فدانًا.</li>
-        <li>المحصول الرئيسي: أعلاف الرودس.</li>
-      </ul>
-      <p class="note" style="margin-top:14px;">دخلت الشركة مجالي الزراعة والتصدير لهذا المحصول.</p>
-    </div>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">07 / 18</div></div>
-</section>
-
-<!-- PAGE 8 — الخدمات الزراعية -->
-<section class="page frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow">Agricultural Services</span>
-      <h1 class="h-ar">خدماتنا الزراعية</h1>
-    </div>
-
-    <div class="mind" style="height:420px;margin-top:10px;">
-      <svg class="lines" viewBox="0 0 340 420">
-        <line x1="170" y1="210" x2="170" y2="30" stroke="var(--gold)" stroke-opacity="0.45"/>
-        <line x1="170" y1="210" x2="60" y2="120" stroke="var(--gold)" stroke-opacity="0.45"/>
-        <line x1="170" y1="210" x2="280" y2="120" stroke="var(--gold)" stroke-opacity="0.45"/>
-        <line x1="170" y1="210" x2="60" y2="300" stroke="var(--gold)" stroke-opacity="0.45"/>
-        <line x1="170" y1="210" x2="280" y2="300" stroke="var(--gold)" stroke-opacity="0.45"/>
-        <line x1="170" y1="210" x2="170" y2="390" stroke="var(--gold)" stroke-opacity="0.45"/>
-      </svg>
-      <div class="mind-center" style="width:110px;height:110px;font-size:11pt;">المشروع<br>الزراعي</div>
-      <div class="mind-node" style="top:6px;right:110px;">تأسيس المشاريع</div>
-      <div class="mind-node" style="top:96px;right:0;">توريد الأسمدة والمبيدات</div>
-      <div class="mind-node" style="top:96px;left:0;">تحضير الأراضي</div>
-      <div class="mind-node" style="top:280px;right:0;">توريد وتركيب الري المحوري</div>
-      <div class="mind-node" style="top:280px;left:0;">دعم الإنتاج والتشغيل</div>
-      <div class="mind-node" style="top:372px;right:110px;">مدخلات ومعدات الإنتاج</div>
-    </div>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">08 / 18</div></div>
-</section>
-
-<!-- PAGE 9 — الاستيراد والتصدير -->
-<section class="page dark frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow">Import &amp; Export</span>
-      <h1 class="h-ar">الاستيراد والتصدير</h1>
-    </div>
-    <p class="body muted" style="font-size:11.5pt;">شراكات محلية وعالمية مع تركيا ومصر والصين، وتعاون مع وكالات التخليص الجمركي لتقديم خدمات استيراد وتصدير متكاملة.</p>
-
-    <svg viewBox="0 0 340 160" style="margin-top:20px;width:100%;">
-      <circle cx="60" cy="90" r="7" fill="var(--gold-lt)"/><text x="60" y="115" text-anchor="middle" fill="var(--ivory)" font-size="10" font-family="Tajawal" font-weight="700">السودان</text>
-      <circle cx="150" cy="40" r="6" fill="var(--gold)"/><text x="150" y="25" text-anchor="middle" fill="var(--ivory)" font-size="9" font-family="Tajawal">تركيا</text>
-      <circle cx="200" cy="110" r="6" fill="var(--gold)"/><text x="200" y="130" text-anchor="middle" fill="var(--ivory)" font-size="9" font-family="Tajawal">مصر</text>
-      <circle cx="290" cy="60" r="6" fill="var(--gold)"/><text x="290" y="45" text-anchor="middle" fill="var(--ivory)" font-size="9" font-family="Tajawal">الصين</text>
-      <path d="M60 90 150 40M60 90 200 110M60 90 290 60" stroke="var(--gold)" stroke-opacity="0.5" stroke-dasharray="3 4" fill="none"/>
-    </svg>
-
-    <div class="split" style="margin-top:10px;">
-      <div style="padding:0 10px 0 0;">
-        <span class="eyebrow" style="color:var(--gold-lt);">Exports — Feed</span>
-        <h3 style="font-weight:800;margin:8px 0;font-size:12.5pt;">صادر الأعلاف</h3>
-        <ul class="list" style="font-size:10.5pt;"><li>البرسيم</li><li>الرودس</li></ul>
-      </div>
-      <div style="padding:0 0 0 10px;">
-        <span class="eyebrow" style="color:var(--gold-lt);">Exports — Crops</span>
-        <h3 style="font-weight:800;margin:8px 0;font-size:12.5pt;">المحاصيل</h3>
-        <ul class="list" style="font-size:10.5pt;"><li>القطن</li><li>السمسم</li><li>الصمغ العربي</li><li>الفول السوداني</li></ul>
-      </div>
-    </div>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">09 / 18</div></div>
-</section>
-
-<!-- PAGE 10 — المنتجات ومدخلات الإنتاج -->
-<section class="page frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow">Products &amp; Inputs</span>
-      <h1 class="h-ar" style="font-size:22pt;">المنتجات ومدخلات الإنتاج</h1>
-    </div>
-
-    <div style="display:flex;flex-direction:column;gap:14px;margin-top:10px;">
-      <div class="container-card">
-        <span class="eyebrow">Agriculture Inputs</span>
-        <h3>مدخلات الإنتاج الزراعي</h3>
-        <p class="note">اليوريا — سماد الداب — آليات زراعية تركية — تقاوي برسيم وخضروات تركية.</p>
-      </div>
-      <div class="container-card">
-        <span class="eyebrow">Food Commodities</span>
-        <h3>المواد الغذائية والسلع</h3>
-        <p class="note">العدس التركي — دقيق القمح — السكر الهندي والبرازيلي — صابون ومنظفات تركية.</p>
-      </div>
-      <div class="container-card">
-        <span class="eyebrow">Electrical Equipment</span>
-        <h3>معدات الكهرباء</h3>
-        <p class="note">أدوات كهربائية للبناء — محولات كهربائية — معدات المشاريع الكهربائية.</p>
-      </div>
-    </div>
-
-    <div style="display:flex;justify-content:space-around;margin-top:24px;">
-      <svg class="icon icon-box" style="stroke:var(--deep);"><use href="#i-wheat"/></svg>
-      <svg class="icon icon-box" style="stroke:var(--deep);"><use href="#i-ship"/></svg>
-      <svg class="icon icon-box" style="stroke:var(--deep);"><use href="#i-bolt"/></svg>
-    </div>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">10 / 18</div></div>
-</section>
-
-<!-- PAGE 11 — التطوير العقاري والمقاولات -->
-<section class="page mid frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow" style="color:var(--gold-lt);">Real Estate &amp; Contracting</span>
-      <h1 class="h-ar">التطوير العقاري<br>والمقاولات</h1>
-    </div>
-    <p class="body" style="color:var(--ivory);font-size:11.5pt;">خدمات متكاملة من التصميم والتخطيط إلى التنفيذ والتأهيل، تشمل الإنشاء والتشطيبات وتوريد مواد ومعدات البناء والكهرباء.</p>
-
-    <div style="margin-top:28px;">
-      <div class="tline">
-        <div class="bar" style="background:rgba(198,161,91,0.4);"></div>
-        <div class="stops">
-          <div class="stop"><div class="node"></div><div class="cap" style="color:var(--ivory);">تصميم</div></div>
-          <div class="stop"><div class="node"></div><div class="cap" style="color:var(--ivory);">توريد</div></div>
-          <div class="stop"><div class="node"></div><div class="cap" style="color:var(--ivory);">إنشاء</div></div>
-          <div class="stop"><div class="node"></div><div class="cap" style="color:var(--ivory);">كهرباء</div></div>
-          <div class="stop"><div class="node"></div><div class="cap" style="color:var(--ivory);">تأهيل</div></div>
-        </div>
-      </div>
-    </div>
-
-    <ul class="list" style="margin-top:34px;color:var(--ivory);">
-      <li>تصميم داخلي وتخطيط للمشاريع الكبيرة.</li>
-      <li>حفر وبناء وتشطيبات وترميم.</li>
-      <li>تنفيذ كهرباء الضغط العالي والمنخفض.</li>
-      <li>تنفيذ شبكات الضغط المتوسط والمنخفض.</li>
-    </ul>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">11 / 18</div></div>
-</section>
-
-<!-- PAGE 12 — المشاريع الكهربائية -->
-<section class="page frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow">Electrical Projects</span>
-      <h1 class="h-ar" style="font-size:20pt;">أبرز المشاريع المنفذة</h1>
-    </div>
-
-    <svg viewBox="0 0 340 150" style="width:100%;">
-      <circle cx="70" cy="50" r="6" fill="var(--gold)"/><text x="70" y="38" text-anchor="middle" font-size="9" font-family="Tajawal" font-weight="700" fill="var(--deep)">عطبرة</text>
-      <circle cx="150" cy="90" r="6" fill="var(--gold)"/><text x="150" y="108" text-anchor="middle" font-size="9" font-family="Tajawal" font-weight="700" fill="var(--deep)">الدامر</text>
-      <circle cx="230" cy="55" r="6" fill="var(--gold)"/><text x="230" y="43" text-anchor="middle" font-size="9" font-family="Tajawal" font-weight="700" fill="var(--deep)">شندي</text>
-      <circle cx="290" cy="100" r="6" fill="var(--gold)"/><text x="290" y="118" text-anchor="middle" font-size="9" font-family="Tajawal" font-weight="700" fill="var(--deep)">شمال بحري</text>
-      <path d="M70 50 150 90 230 55 290 100" stroke="var(--gold-dim)" stroke-width="1.5" fill="none"/>
-    </svg>
-
-    <div class="stat-grid" style="margin-top:16px;">
-      <div class="stat-card"><div class="stat-num">140</div><div class="stat-label">محورًا لشركة زادنا<br><span class="note" style="color:var(--gold-lt);">Pivots — Zadna</span></div></div>
-      <div class="stat-card"><div class="stat-num">87</div><div class="stat-label">قرية بشمال بحري<br><span class="note" style="color:var(--gold-lt);">Villages network</span></div></div>
-    </div>
-
-    <ul class="list" style="margin-top:16px;font-size:10.8pt;">
-      <li>شبكة ضغط عالٍ لمحطة مشروع زادي 1 بدائرة مزدوجة.</li>
-      <li>كهرباء منخفضة ومتوسطة بمربعات الدامر 61 والسوق الجديد ومربع 2.</li>
-      <li>شبكات لمربعات حي المطار بعطبرة، ومحطات توزيعية للمربعات 9–13.</li>
-    </ul>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">12 / 18</div></div>
-</section>
-
-<!-- PAGE 13 — الآليات -->
-<section class="page dark frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow">Machinery &amp; Equipment</span>
-      <h1 class="h-ar" style="font-size:20pt;">الآليات المستخدمة</h1>
-    </div>
-
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:10px;">
-      <div class="stat-card" style="text-align:center;"><div class="stat-num" style="font-size:18pt;">2</div><div class="stat-label">بوكسي</div></div>
-      <div class="stat-card" style="text-align:center;"><div class="stat-num" style="font-size:18pt;">2</div><div class="stat-label">دفار</div></div>
-      <div class="stat-card" style="text-align:center;"><div class="stat-num" style="font-size:18pt;">1</div><div class="stat-label">حفار أعمدة</div></div>
-      <div class="stat-card" style="text-align:center;"><div class="stat-num" style="font-size:18pt;">1</div><div class="stat-label">باكلودر</div></div>
-      <div class="stat-card" style="text-align:center;"><div class="stat-num" style="font-size:18pt;">10T</div><div class="stat-label">قدرة الكرين</div></div>
-      <div class="stat-card" style="text-align:center;"><div class="stat-num" style="font-size:18pt;">8</div><div class="stat-label">سلالم فايبر</div></div>
-    </div>
-
-    <p class="note" style="margin-top:14px;color:var(--gold-lt);">السلالم: 4×11م — 2×12م — 2×10م. إضافة إلى شنطتي مفاتيح متكاملة، ومعدات رفع 2 طن و1.5 طن.</p>
-
-    <span class="eyebrow" style="color:var(--gold-lt);margin-top:22px;display:block;">Safety Gear</span>
-    <ul class="list" style="margin-top:8px;font-size:10.5pt;color:var(--ivory);">
-      <li>6 أحزمة أمان — 2 عصا فيوزات — 4 عصي تعاريض.</li>
-      <li>2 جهاز قياس — 2 مكبس حزم — 2 مقص أسلاك — 2 مقص سلك صبان.</li>
-    </ul>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">13 / 18</div></div>
-</section>
-
-<!-- PAGE 14 — فريق العمل -->
-<section class="page frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow">Our Team</span>
-      <h1 class="h-ar">الطاقم الهندسي والفني</h1>
-    </div>
-    <p class="body" style="font-size:11.5pt;">فريق متكامل من الكفاءات الفنية والهندسية والإدارية بخبرات عملية تتجاوز 20 عامًا، إلى جانب شبكة علاقات محلية وإقليمية.</p>
-
-    <div style="margin-top:24px;position:relative;">
-      <div style="width:130px;margin:0 auto;background:var(--deep);color:var(--ivory);border-radius:8px;padding:10px;text-align:center;font-weight:800;font-size:11pt;">الإدارة العامة</div>
-      <svg viewBox="0 0 340 40" style="width:100%;height:40px;"><path d="M170 0v20M60 40V20h220v0M60 40V20M170 20V40M280 40V20" stroke="var(--gold-dim)" fill="none"/></svg>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
-        <div class="container-card" style="text-align:center;padding:10px 6px;"><svg class="icon" style="width:26px;height:26px;stroke:var(--deep);margin:0 auto;"><use href="#i-bolt"/></svg><div class="note" style="margin-top:6px;">مهندسو كهرباء ومساحة</div></div>
-        <div class="container-card" style="text-align:center;padding:10px 6px;"><svg class="icon" style="width:26px;height:26px;stroke:var(--deep);margin:0 auto;"><use href="#i-leaf"/></svg><div class="note" style="margin-top:6px;">مهندسون زراعيون</div></div>
-        <div class="container-card" style="text-align:center;padding:10px 6px;"><svg class="icon" style="width:26px;height:26px;stroke:var(--deep);margin:0 auto;"><use href="#i-team"/></svg><div class="note" style="margin-top:6px;">إداريون وفنيون</div></div>
-      </div>
-      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:8px;">
-        <div class="container-card" style="text-align:center;padding:10px 6px;"><div class="note">عمال مهرة بخبرات ميدانية</div></div>
-        <div class="container-card" style="text-align:center;padding:10px 6px;"><div class="note">سائقون لنقل المعدات والموارد</div></div>
-      </div>
-    </div>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">14 / 18</div></div>
-</section>
-
-<!-- PAGE 15 — إيديا -->
-<section class="page dark frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow">IDEA — ICT</span>
-      <h1 class="h-ar" style="font-size:20pt;">إيديا لتقنية المعلومات<br>والاتصالات</h1>
-    </div>
-    <p class="body muted" style="font-size:11.5pt;">الذراع التقني لشركة المفتي، تقدّم من خلاله حلولًا مبتكرة ومتقدمة في مجال التكنولوجيا لدعم الأعمال محليًا وإقليميًا.</p>
-
-    <div class="mind" style="height:330px;margin-top:14px;">
-      <svg class="lines" viewBox="0 0 340 330">
-        <circle cx="170" cy="165" r="110" fill="none" stroke="var(--gold-dim)"/>
-        <line x1="170" y1="165" x2="170" y2="55" stroke="var(--gold)" stroke-opacity="0.5"/>
-        <line x1="170" y1="165" x2="280" y2="165" stroke="var(--gold)" stroke-opacity="0.5"/>
-        <line x1="170" y1="165" x2="170" y2="275" stroke="var(--gold)" stroke-opacity="0.5"/>
-        <line x1="170" y1="165" x2="60" y2="165" stroke="var(--gold)" stroke-opacity="0.5"/>
-      </svg>
-      <div class="mind-center" style="background:var(--gold);color:var(--deep);">IDEA</div>
-      <div class="mind-node" style="top:8px;right:110px;background:transparent;border-color:var(--gold);color:var(--ivory);">دعم أداء الأعمال</div>
-      <div class="mind-node" style="top:145px;left:0;background:transparent;border-color:var(--gold);color:var(--ivory);">خدمة المؤسسات</div>
-      <div class="mind-node" style="bottom:8px;right:110px;background:transparent;border-color:var(--gold);color:var(--ivory);">أنظمة تقنية حديثة</div>
-      <div class="mind-node" style="top:145px;right:0;background:transparent;border-color:var(--gold);color:var(--ivory);">شراكات تقنية</div>
-    </div>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">15 / 18</div></div>
-</section>
-
-<!-- PAGE 16 — IDEA ERP -->
-<section class="page frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow">IDEA ERP — Built on Odoo</span>
-      <h1 class="h-ar" style="font-size:19pt;">نظام IDEA ERP</h1>
-    </div>
-    <p class="body" style="font-size:11pt;">صمّمت إيديا وطوّرت نظام IDEA ERP باستخدام منصة Odoo، ليضم وحدات أساسية تغطي احتياجات إدارة الأعمال.</p>
-
-    <div class="mind" style="height:270px;margin-top:6px;">
-      <svg class="lines" viewBox="0 0 340 270">
-        <line x1="170" y1="135" x2="170" y2="20" stroke="var(--gold)" stroke-opacity="0.45"/>
-        <line x1="170" y1="135" x2="290" y2="80" stroke="var(--gold)" stroke-opacity="0.45"/>
-        <line x1="170" y1="135" x2="290" y2="200" stroke="var(--gold)" stroke-opacity="0.45"/>
-        <line x1="170" y1="135" x2="50" y2="200" stroke="var(--gold)" stroke-opacity="0.45"/>
-        <line x1="170" y1="135" x2="50" y2="80" stroke="var(--gold)" stroke-opacity="0.45"/>
-      </svg>
-      <div class="mind-center" style="width:100px;height:100px;font-size:10pt;">IDEA<br>ERP</div>
-      <div class="mind-node" style="top:0;right:110px;width:100px;">الحسابات</div>
-      <div class="mind-node" style="top:56px;left:0;width:100px;">سلسلة الإمداد</div>
-      <div class="mind-node" style="bottom:56px;left:0;width:100px;">CRM</div>
-      <div class="mind-node" style="bottom:0;right:110px;width:100px;">إدارة المشاريع</div>
-      <div class="mind-node" style="top:56px;right:0;width:100px;">الرعاية الصحية</div>
-    </div>
-
-    <div class="container-card" style="margin-top:12px;">
-      <span class="eyebrow"><svg class="icon" style="width:14px;height:14px;display:inline-block;vertical-align:middle;"><use href="#i-hospital"/></svg> Idea Healthcare System</span>
-      <h3>نظام إيديا للرعاية الصحية</h3>
-      <p class="note">إدارة المستشفيات والصيدليات والعمليات الإدارية والتشغيلية للمنشآت الصحية.</p>
-    </div>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">16 / 18</div></div>
-</section>
-
-<!-- PAGE 17 — المشاريع التقنية والشراكات -->
-<section class="page mid frame">
-  <div class="fc2"></div><div class="fc3"></div>
-  <div class="content">
-    <div class="kicker">
-      <span class="eyebrow" style="color:var(--gold-lt);">Technology Projects</span>
-      <h1 class="h-ar" style="font-size:19pt;">المشاريع التقنية والشراكات</h1>
-    </div>
-
-    <ul class="list" style="color:var(--ivory);font-size:10.3pt;">
-      <li>كاميرات مراقبة للساحة الخضراء.</li>
-      <li>صيانة نظام مراقبة بنك الخليج.</li>
-      <li>كاميرات مراقبة لاستاد نادي المريخ.</li>
-      <li>نظام إدارة مستشفى السلام التخصصي — اليمن.</li>
-      <li>تطبيق موبايل لشركة معارض — الكويت.</li>
-      <li>موقع إلكتروني لشركة يزن للاستيراد والتصدير.</li>
-    </ul>
-
-    <div style="margin-top:22px;">
-      <span class="eyebrow" style="color:var(--gold-lt);">Strategic Partnerships</span>
-      <h3 style="color:var(--ivory);font-weight:800;margin-top:6px;font-size:13pt;">الشراكات الاستراتيجية</h3>
-      <div style="position:relative;height:130px;margin-top:10px;">
-        <svg viewBox="0 0 300 130" style="width:100%;height:100%;">
-          <circle cx="150" cy="65" r="10" fill="var(--gold)"/>
-          <circle cx="60" cy="30" r="7" fill="var(--gold-dim)"/>
-          <circle cx="240" cy="30" r="7" fill="var(--gold-dim)"/>
-          <circle cx="60" cy="100" r="7" fill="var(--gold-dim)"/>
-          <circle cx="240" cy="100" r="7" fill="var(--gold-dim)"/>
-          <path d="M150 65 60 30M150 65 240 30M150 65 60 100M150 65 240 100" stroke="var(--gold)" stroke-opacity="0.4" fill="none"/>
-        </svg>
-      </div>
-      <p class="note" style="color:rgba(246,241,228,0.75);">علاقات متينة تدعم النمو المستدام طويل الأجل مع شركاء في مجالات متعددة.</p>
-    </div>
-  </div>
-  <div class="footstrip"><div class="mark"><span class="dot"></span>ALMUFTI</div><div class="page-index">17 / 18</div></div>
-</section>
-
-<!-- PAGE 18 — الختامية -->
-<section class="page dark">
-  <div style="position:absolute;inset:0;opacity:0.5;">
-    <svg width="100%" height="100%" viewBox="0 0 432 768" preserveAspectRatio="none">
-      <rect width="432" height="768" fill="var(--deep)"/>
-      <rect y="618" width="432" height="150" fill="var(--deep2)"/>
-      <line x1="0" y1="618" x2="432" y2="618" stroke="var(--gold)" stroke-opacity="0.35"/>
-    </svg>
-  </div>
-  <div class="frame"><span class="fc2"></span><span class="fc3"></span></div>
-  <div class="content" style="display:flex;flex-direction:column;justify-content:center;align-items:flex-end;text-align:right;height:100%;padding-bottom:200px;">
-    <span class="eyebrow">Thank You</span>
-    <div class="goldline" style="margin:14px 0 14px auto;"></div>
-    <h1 class="h-ar" style="font-size:24pt;">نحن هنا لدعم رؤيتكم<br>وتحويل أفكاركم إلى واقع ملموس</h1>
-    <p style="margin-top:18px;font-size:12pt;font-weight:500;color:var(--gold-lt);">شكرًا لثقتكم واهتمامكم بشركتنا</p>
-  </div>
-  <div style="position:absolute;bottom:44px;left:44px;right:44px;">
-    <div style="height:1px;background:var(--gold-dim);margin-bottom:16px;"></div>
-    <p style="font-size:11pt;font-weight:700;">شركة المفتي للمشاريع المتطورة المحدودة</p>
-    <p style="font-size:9.5pt;font-weight:500;opacity:0.8;margin-top:2px;">ALMUFTI DEVELOPED PROJECTS CO. LTD</p>
-    <p style="font-size:10.5pt;font-weight:600;line-height:1.8;margin-top:10px;">Khartoum / Al Shargi Street<br>
-    <span dir="ltr" style="display:inline-block;">+249 912 324 090</span><br>
-    <span dir="ltr" style="display:inline-block;">elmfuti428@gmail.com</span></p>
-  </div>
-</section>
-
+<div class="box">
+  <strong>باختصار:</strong> بياناتك تخصّك، ونستخدمها فقط لتشغيل التطبيق وتحسينه،
+  ولا نبيع بياناتك لأي طرف ثالث إطلاقاً.
 </div>
+
+<h2>1. البيانات التي نجمعها</h2>
+<ul>
+  <li><strong>بيانات الحساب:</strong> الاسم، البريد الإلكتروني، وكلمة المرور (مشفّرة)، ودور المستخدم داخل المحل (مدير/كاشير...).</li>
+  <li><strong>بيانات المحل:</strong> اسم المحل، العنوان، رقم الهاتف، وقائمة الأعضاء.</li>
+  <li><strong>بيانات التشغيل:</strong> بيانات المخزون (قطع الغيار)، المبيعات، المشتريات، العملاء، الموردين، المصروفات، الرواتب، والديون — وهي البيانات التي تُدخلها أنت بنفسك في التطبيق.</li>
+  <li><strong>بيانات الجهاز:</strong> نستخدم كاميرا الجهاز فقط عند طلبك مسح الباركود؛ ولا نلتقط الصور أو الفيديو ولا نخزّنها.</li>
+  <li><strong>بيانات تقنية أساسية:</strong> إصدار التطبيق ونوع الجهاز لأغراض التوافق والتحسين.</li>
+</ul>
+
+<h2>2. كيف نستخدم بياناتك</h2>
+<ul>
+  <li>إنشاء حسابك وإدارته والتحقق من هويتك.</li>
+  <li>تمكينك من إدارة مخزونك ومبيعاتك وتقاريرك بشكل آمن ومعزول بين المحلات.</li>
+  <li>إتاحة ميزة مسح الباركود وإعادة تعيين كلمة المرور.</li>
+  <li>تحسين أداء التطبيق وإصلاح الأخطاء.</li>
+  <li>إدارة الترخيص والاشتراك في التطبيق.</li>
+</ul>
+
+<h2>3. أين تُخزَّن بياناتك وكيف تحمى</h2>
+<p>
+  تُخزَّن بياناتك على خوادم <strong>Supabase</strong> (منصة سحابية قائمة على
+  PostgreSQL) وتُشفَّر أثناء النقل (HTTPS). كلمات المرور تُخزَّن مشفّرة
+  وبشكل لا يمكن قراءتها. تطبيق الحماية على مستوى قاعدة البيانات (RLS)
+  يضمن أن كل محلاً لا يرى إلا بياناته الخاصة.
+</p>
+
+<h2>4. مشاركة البيانات</h2>
+<ul>
+  <li>لا نبيع بياناتك ولا نؤجرها لأي طرف ثالث.</li>
+  <li>لا نشارك بياناتك إلا مع مزوّدي الخدمة التقنية اللازمين لتشغيل التطبيق (مثل مزوّد الاستضافة السحابية) وضمن حدود ما يقتضيه التشغيل.</li>
+  <li>قد نكشف عن بياناتك إذا طلب القانون ذلك أو استلزمه أمر قضائي.</li>
+</ul>
+
+<h2>5. حقوقك</h2>
+<p>يحق لك في أي وقت:</p>
+<ul>
+  <li><strong>الاطلاع</strong> على بياناتك الشخصية.</li>
+  <li><strong>تصحيح</strong> أي بيانات ناقصة أو خاطئة.</li>
+  <li><strong>حذف</strong> حسابك وبياناتك — تواصل معنا وسنحذفها خلال 30 يوماً.</li>
+  <li><strong>سحب الموافقة</strong> على معالجة بياناتك.</li>
+</ul>
+
+<h2>6. مدة الاحتفاظ بالبيانات</h2>
+<p>
+  نحتفظ ببياناتك طوال فترة استخدامك للتطبيق، ونحذفها عند طلبك حذف الحساب
+  أو عند انتهاء العلاقة التعاقدية، ما لم يقتضِ القانون الاحتفاظ بها لفترة أطول.
+</p>
+
+<h2>7. خصوصية الأطفال</h2>
+<p>
+  التطبيق مخصص للاستخدام التجاري (إدارة محلات) وليس موجهاً للأطفال دون 13 عاماً،
+  ولا نجمع عن قصد بياناتهم.
+</p>
+
+<h2>8. التعديلات على هذه السياسة</h2>
+<p>
+  قد نحدّث هذه السياسة من وقت لآخر، وسيظهر تاريخ آخر تحديث أعلى الصفحة.
+  استمرارك في استخدام التطبيق بعد التحديث يعني موافقتك على السياسة المعدّلة.
+</p>
+
+<h2>9. التواصل معنا</h2>
+<p>
+  لأي استفسار أو طلب بخصوص بياناتك، تواصل معنا عبر البريد الإلكتروني:
+</p>
+<p><strong>[walieldeenmowyia@gmail.com]</strong></p>
+
+<footer>
+  © 2026 اسبيرك (Espeerk) — جميع الحقوق محفوظة.
+</footer>
+
 </body>
 </html>
